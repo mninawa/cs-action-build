@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "ts-node",
+      "type": "node",
+      "request": "launch",
+      "args": ["./src/index.ts"],
+      "runtimeArgs": ["-r", "ts-node/register"],
+      "cwd": "${workspaceRoot}",
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "INPUT_GH-TOKEN": "secret-token-123456",
+        "INPUT_LABEL": "needs-review",
+        "INPUT_VARIABLES": "{\"header\":\"./resource/header/header.kts\",\"footer\":\"./resource/footer/footer.kts\",\"trala\":[{\"type\":\"vehicleInvoiceTransform\",\"path\":\"./resource/code/task1/test1.kts\",\"index\":\"jsonTransformation\"}]}"
+      }
+    }
+  ]
+}
+

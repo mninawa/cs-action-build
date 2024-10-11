@@ -1,0 +1,23 @@
+name: "cs-action-build"
+description: "Merging all the files that are necessary"
+author: "Paige Mkoko"
+
+inputs:
+  gh-token:
+    description: 'The GitHub token for authentication.'
+    required: true
+  label:
+    description: 'The label to be applied to the pull request.'
+    required: true
+  
+  variables:
+    description: 'The  variables for json file.'
+    required: true
+
+runs:
+  using: "node16"
+  main: "dist/index.js"
+
+branding:
+  icon: 'activity'
+  color: 'green'
