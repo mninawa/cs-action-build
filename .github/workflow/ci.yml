@@ -1,0 +1,15 @@
+name: "CI"
+on:
+  pull_request:
+    types: [opened, reopened]
+jobs:
+  hello:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
+          label: 'needs-review'
+          variables: "{\"header\":\"./resource/header/header.kts\",\"footer\":\"./resource/footer/footer.kts\",\"trala\":[{\"type\":\"vehicleInvoiceTransform\",\"path\":\"./resource/code/task1/test1.kts\",\"index\":\"jsonTransformation\"}]}"
+     
