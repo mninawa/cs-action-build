@@ -1,12 +1,13 @@
 import { getInput, setFailed } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import { promises as fs,readFileSync } from 'fs';
+import { promises as fs,readFileSync,writeFileSync  } from 'fs';
 
 export async function run() {
 
   const token = getInput("gh-token");
   const label = getInput("label");
   const variables = getInput("variables");
+  const target = getInput("target");
   const octokit = getOctokit(token);
   const pullRequest = context.payload.pull_request;
 
@@ -20,7 +21,7 @@ export async function run() {
     const variables_instance: Variables = JSON.parse(variables)
     console.log(variables_instance)
 
-    writeOff(variables_instance)
+    writeOff(variables_instance,target)
     await octokit.rest.issues.addLabels({
       owner: context.repo.owner,
       repo: context.repo.repo,
@@ -33,7 +34,9 @@ export async function run() {
   }
 }
 
-const writeOff = async (variable:Variables): Promise<void> => {
+
+
+const writeOff = async (variable:Variables,target:string): Promise<void> => {
 
   var formatted: string[] = [];
   const header = readFileSync(variable.header, 'utf-8');
@@ -50,8 +53,10 @@ const writeOff = async (variable:Variables): Promise<void> => {
   const footer = readFileSync(variable.footer, 'utf-8');
   formatted.push( footer);
 
+
   formatted.forEach(data => {
  console.log(data)
+  writeFileSync(target,data);
 });
 
 }
