@@ -9807,7 +9807,6 @@ async function run() {
     const pullRequest = github_1.context.payload.pull_request;
     try {
         const variables_instance = JSON.parse((0, fs_1.readFileSync)(configs, 'utf-8'));
-        console.log(variables_instance);
         writeOff(variables_instance, target);
         await octokit.rest.issues.addLabels({
             owner: github_1.context.repo.owner,
@@ -9834,10 +9833,16 @@ const writeOff = async (variable, target) => {
     });
     const footer = (0, fs_1.readFileSync)(variable.footer, 'utf-8');
     formatted.push(footer);
-    formatted.forEach(data => {
-        console.log(data);
-        (0, fs_1.writeFileSync)(target, data);
-    });
+    try {
+        formatted.forEach(data => {
+            console.log(data);
+            (0, fs_1.writeFileSync)(target, data, 'utf8');
+        });
+    }
+    catch (err) {
+        console.log(err);
+        throw err;
+    }
 };
 if (!process.env.JEST_WORKER_ID) {
     run();

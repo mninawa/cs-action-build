@@ -1,6 +1,6 @@
 import { getInput, setFailed } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import { promises as fs,readFileSync,writeFileSync  } from 'fs';
+import { promises as fs, readFileSync, writeFileSync } from 'fs';
 
 export async function run() {
 
@@ -13,15 +13,14 @@ export async function run() {
 
   try {
 
-  
-    const variables_instance: Variables = JSON.parse(readFileSync(configs, 'utf-8'))
-    console.log(variables_instance)
 
-    writeOff(variables_instance,target)
+    const variables_instance: Variables = JSON.parse(readFileSync(configs, 'utf-8'))
+
+    writeOff(variables_instance, target)
     await octokit.rest.issues.addLabels({
       owner: context.repo.owner,
       repo: context.repo.repo,
-      issue_number: pullRequest?.number??0,
+      issue_number: pullRequest?.number ?? 0,
       labels: [label],
     });
 
@@ -32,7 +31,7 @@ export async function run() {
 
 
 
-const writeOff = async (variable:Variables,target:string): Promise<void> => {
+const writeOff = async (variable: Variables, target: string): Promise<void> => {
 
   var formatted: string[] = [];
   const header = readFileSync(variable.header, 'utf-8');
@@ -40,21 +39,27 @@ const writeOff = async (variable:Variables,target:string): Promise<void> => {
 
 
   variable.trala?.forEach(trala => {
-     formatted.push(`${trala.type} = """`);
-     const file = readFileSync(trala.path, 'utf-8');
-     formatted.push( file.substring(file.indexOf(trala?.index)));
-     formatted.push( `"""`);
+    formatted.push(`${trala.type} = """`);
+    const file = readFileSync(trala.path, 'utf-8');
+    formatted.push(file.substring(file.indexOf(trala?.index)));
+    formatted.push(`"""`);
   });
 
   const footer = readFileSync(variable.footer, 'utf-8');
-  formatted.push( footer);
+  formatted.push(footer);
 
-  formatted.forEach(data => {
- console.log(data)
-  writeFileSync(target,data);
-});
+  try {
+    formatted.forEach(data => {
+      console.log(data)
+      writeFileSync(target, data, 'utf8');
+    });
+  } catch (err) {
+    console.log(err)
+    throw err
+  }
 
 }
+
 
 if (!process.env.JEST_WORKER_ID) {
   run();
@@ -64,11 +69,11 @@ if (!process.env.JEST_WORKER_ID) {
 export interface Variables {
   header: string;
   footer: string;
-  trala?:  Trala[];
+  trala?: Trala[];
 }
 
 export interface Trala {
-  type:  string;
-  path:  string;
+  type: string;
+  path: string;
   index: string;
 }
