@@ -12,7 +12,9 @@
       "env": {
         "INPUT_GH-TOKEN": "secret-token-123456",
         "INPUT_LABEL": "needs-review",
-        "INPUT_VARIABLES": "{\"header\":\"./resource/header/header.kts\",\"footer\":\"./resource/footer/footer.kts\",\"trala\":[{\"type\":\"vehicleInvoiceTransform\",\"path\":\"./resource/code/task1/test1.kts\",\"index\":\"jsonTransformation\"}]}"
+        "INPUT_VARIABLES": "./resource/variables.json",
+       "INPUT_TARGET": "./resource/base.conf"
+      
       }
     }
   ]

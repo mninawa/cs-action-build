@@ -6,7 +6,7 @@ export async function run() {
 
   const token = getInput("gh-token");
   const label = getInput("label");
-  const variables = getInput("variables");
+  const configs = getInput("variables");
   const target = getInput("target");
   const octokit = getOctokit(token);
   const pullRequest = context.payload.pull_request;
@@ -18,7 +18,7 @@ export async function run() {
     }
 
 
-    const variables_instance: Variables = JSON.parse(variables)
+    const variables_instance: Variables = JSON.parse(readFileSync(configs, 'utf-8'))
     console.log(variables_instance)
 
     writeOff(variables_instance,target)
@@ -52,7 +52,6 @@ const writeOff = async (variable:Variables,target:string): Promise<void> => {
 
   const footer = readFileSync(variable.footer, 'utf-8');
   formatted.push( footer);
-
 
   formatted.forEach(data => {
  console.log(data)

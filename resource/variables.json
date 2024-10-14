@@ -1,0 +1,3 @@
+{"header":"./resource/header/header.kts","footer":"./resource/footer/footer.kts","trala":[{
+    "type":"vehicleInvoiceTransform","path":"./resource/code/task1/test1.kts"
+}]}
