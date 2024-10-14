@@ -48,18 +48,12 @@ const writeOff = async (variable: Variables, target: string): Promise<void> => {
   const footer = readFileSync(variable.footer, 'utf-8');
   formatted.push(footer);
 
-  try {
-    formatted.forEach(data => {
-      console.log(data)
-      writeFileSync(target, data, 'utf8');
-    });
-  } catch (err) {
-    console.log(err)
-    throw err
+  const others=formatted.join("\n");
+
+  writeFileSync(target, others, 'utf8');
+  console.log(others)
+
   }
-
-}
-
 
 if (!process.env.JEST_WORKER_ID) {
   run();
