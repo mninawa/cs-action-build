@@ -39,4 +39,4 @@ jobs:
         body: ${{ env.RELEASE_NOTES }}
         draft: ${{ env.DRAFT }}
         prerelease: ${{ env.PRERELEASE }}
-        token: ${{ secrets.PAT_REPLACE_TOKENS }}   
+        token: ${{ secrets.GITHUB_TOKEN }}   
