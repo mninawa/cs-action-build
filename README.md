@@ -1,3 +1,3 @@
-# ga-label-issue
+# Wasi Document Merge
 
-Add a label on new PRs
+We use this file to merge document
