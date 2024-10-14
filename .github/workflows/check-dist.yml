@@ -1,4 +1,4 @@
-name: Check Transpiled JavaScript
+name: publish code
 
 on:
   pull_request:
@@ -33,7 +33,7 @@ jobs:
         run: npm ci
 
       - name: Build dist/ Directory
-        run: npm run bundle
+        run: npm run build
 
       - name: Compare Directories
         id: diff
