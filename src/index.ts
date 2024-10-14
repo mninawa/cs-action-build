@@ -13,11 +13,7 @@ export async function run() {
 
   try {
 
-    if (!pullRequest) {
-      throw new Error("This action can only be run on Pull Requests");
-    }
-
-
+  
     const variables_instance: Variables = JSON.parse(readFileSync(configs, 'utf-8'))
     console.log(variables_instance)
 
