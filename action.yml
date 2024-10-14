@@ -14,6 +14,10 @@ inputs:
     description: 'The  variables for json file.'
     required: true
 
+  target:
+    description: 'The  variables for json file.'
+    required: true
+
 runs:
   using: "node16"
   main: "dist/index.js"
