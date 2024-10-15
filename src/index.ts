@@ -8,24 +8,18 @@ export async function run() {
   const label = getInput("label");
   const configs = getInput("variables");
   const target = getInput("target");
-  const octokit = getOctokit(token);
-  const pullRequest = context.payload.pull_request;
 
   try {
 
-
     const variables_instance: Variables = JSON.parse(readFileSync(configs, 'utf-8'))
-
     writeOff(variables_instance, target)
-    await octokit.rest.issues.addLabels({
-      owner: context.repo.owner,
-      repo: context.repo.repo,
-      issue_number: pullRequest?.number ?? 0,
-      labels: [label],
-    });
 
-  } catch (error) {
-    setFailed((error as Error)?.message ?? "Unknown error");
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      return {
+        message: `Things exploded (${err.message} ${err.stack})`,
+      };
+    }
   }
 }
 
