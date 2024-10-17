@@ -30,8 +30,8 @@ const writeOff = async (variable: Variables, target: string): Promise<void> => {
   var formatted: string[] = [];
   const header = readFileSync(variable.header, 'utf-8');
   formatted.push(header);
-
-
+  formatted.push("\n");
+  formatted.push("transformations { ");
   variable.trala?.forEach(trala => {
     formatted.push(`${trala.type} = """`);
     const file = readFileSync(trala.path, 'utf-8');
@@ -43,7 +43,7 @@ const writeOff = async (variable: Variables, target: string): Promise<void> => {
   formatted.push(footer);
 
   const others=formatted.join("\n");
-
+  formatted.push(" } ");
   writeFileSync(target, others, 'utf8');
   console.log(others)
 

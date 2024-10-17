@@ -2862,6 +2862,8 @@ const writeOff = async (variable, target) => {
     var formatted = [];
     const header = (0, fs_1.readFileSync)(variable.header, 'utf-8');
     formatted.push(header);
+    formatted.push("\n");
+    formatted.push("transformations { ");
     (_a = variable.trala) === null || _a === void 0 ? void 0 : _a.forEach(trala => {
         formatted.push(`${trala.type} = """`);
         const file = (0, fs_1.readFileSync)(trala.path, 'utf-8');
@@ -2871,6 +2873,7 @@ const writeOff = async (variable, target) => {
     const footer = (0, fs_1.readFileSync)(variable.footer, 'utf-8');
     formatted.push(footer);
     const others = formatted.join("\n");
+    formatted.push(" } ");
     (0, fs_1.writeFileSync)(target, others, 'utf8');
     console.log(others);
 };
