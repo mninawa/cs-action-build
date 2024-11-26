@@ -42,8 +42,8 @@ const writeOff = async (variable: Variables, target: string): Promise<void> => {
   const footer = readFileSync(variable.footer, 'utf-8');
   formatted.push(footer);
 
-  const others=formatted.join("\n");
-  formatted.push(" } ");
+  const others=formatted.join("\n } ");
+
   writeFileSync(target, others, 'utf8');
   console.log(others)
 
