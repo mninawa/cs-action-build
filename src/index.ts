@@ -38,11 +38,11 @@ const writeOff = async (variable: Variables, target: string): Promise<void> => {
     formatted.push(file.substring(file.indexOf(trala?.index)));
     formatted.push(`"""`);
   });
-
+  formatted.push(" \n } ");
   const footer = readFileSync(variable.footer, 'utf-8');
   formatted.push(footer);
 
-  const others=formatted.join("\n } ");
+  const others=formatted.join("\n ");
 
   writeFileSync(target, others, 'utf8');
   console.log(others)
